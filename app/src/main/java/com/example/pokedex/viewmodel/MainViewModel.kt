@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.model.repository.Pokemon
+import com.example.pokedex.model.repository.Pokedex
 import com.example.pokedex.model.repository.PokemonRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,19 +26,19 @@ class MainViewModel @Inject constructor(
     sealed class UiState {
 
         /**
-         * 初期状態
-         */
-        object Initial : UiState()
-
-        /**
          * 読み込み中
          */
         object Loading : UiState()
 
         /**
-         * 読み込み成功
+         * Pokemon の読み込み成功
          */
-        data class Success(val pokemon: Pokemon) : UiState()
+        data class SuccessPokemon(val pokemon: Pokemon) : UiState()
+
+        /**
+         * Pokedex の読み込み成功
+         */
+        data class SuccessPokedex(val pokedex: Pokedex) : UiState()
 
         /**
          * 読み込み失敗
@@ -48,12 +49,25 @@ class MainViewModel @Inject constructor(
     /**
      * View の状態を [UiState] として表す MutableState
      */
-    val uiState: MutableState<UiState> = mutableStateOf(UiState.Initial)
+    val uiState: MutableState<UiState> = mutableStateOf(UiState.Loading)
 
     /**
      * 検索フォームに入力された文字列を表す MutableState
      */
     val searchQuery: MutableState<String> = mutableStateOf("")
+
+    fun onViewCreated() {
+        viewModelScope.launch {
+            uiState.value = UiState.Loading
+            runCatching {
+                pokemonRepository.getPokedex()
+            }.onSuccess {
+                uiState.value = UiState.SuccessPokedex(pokedex = it)
+            }.onFailure {
+                uiState.value = UiState.Failure
+            }
+        }
+    }
 
     /**
      * 検索を実行する。
@@ -69,7 +83,7 @@ class MainViewModel @Inject constructor(
             runCatching {
                 pokemonRepository.getPokemon(name = searchQuery.lowercase(Locale.getDefault()))
             }.onSuccess {
-                uiState.value = UiState.Success(pokemon = it)
+                uiState.value = UiState.SuccessPokemon(pokemon = it)
             }.onFailure {
                 uiState.value = UiState.Failure
             }

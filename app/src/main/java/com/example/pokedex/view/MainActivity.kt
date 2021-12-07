@@ -16,5 +16,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             MainView(mainViewModel = mainViewModel)
         }
+        mainViewModel.onViewCreated()
     }
 }

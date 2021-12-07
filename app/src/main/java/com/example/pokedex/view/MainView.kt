@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.example.pokedex.model.repository.Pokedex
 import com.example.pokedex.model.repository.Pokemon
 import com.example.pokedex.viewmodel.MainViewModel
 
@@ -23,13 +24,13 @@ fun MainView(mainViewModel: MainViewModel) {
             onSearchButtonTapped = mainViewModel::onSearchTapped,
         )
         when (uiState) {
-            is MainViewModel.UiState.Initial -> {
-                InitialView()
-            }
             is MainViewModel.UiState.Loading -> {
                 LoadingView()
             }
-            is MainViewModel.UiState.Success -> {
+            is MainViewModel.UiState.SuccessPokedex -> {
+                PokedexView(pokedex = uiState.requirePokedex())
+            }
+            is MainViewModel.UiState.SuccessPokemon -> {
                 PokemonDetailView(pokemon = uiState.requirePokemon())
             }
             else -> {
@@ -41,6 +42,12 @@ fun MainView(mainViewModel: MainViewModel) {
 
 // MainViewModel が保持する Pokemon を強制的に取り出す
 private fun MainViewModel.UiState.requirePokemon(): Pokemon {
-    if (this !is MainViewModel.UiState.Success) throw IllegalStateException("Pokemon is not loaded.")
+    if (this !is MainViewModel.UiState.SuccessPokemon) throw IllegalStateException("Pokemon is not loaded.")
     return pokemon
+}
+
+// MainViewModel が保持する Pokedex を強制的に取り出す
+private fun MainViewModel.UiState.requirePokedex(): Pokedex {
+    if (this !is MainViewModel.UiState.SuccessPokedex) throw IllegalStateException("Pokedex is not loaded.")
+    return pokedex
 }
