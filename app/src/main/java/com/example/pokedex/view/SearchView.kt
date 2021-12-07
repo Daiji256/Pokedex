@@ -1,0 +1,42 @@
+package com.example.pokedex.view
+
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.Button
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.ui.Modifier
+import java.util.*
+
+/**
+ * 検索キーワードの入力フォームと検索実行ボタンの表示
+ */
+@Composable
+fun SearchView(
+    searchQuery: MutableState<String>,
+    onSearchButtonTapped: () -> Unit
+) {
+    Row(Modifier.fillMaxWidth()) {
+        TextField(
+            label = {
+                Text("ポケモンの英名または番号を入力")
+            },
+            value = searchQuery.value,
+            onValueChange = { text ->
+                searchQuery.value = text.lowercase(Locale.getDefault())
+            },
+            modifier = Modifier.weight(1f)
+        )
+        Button(
+            onClick = {
+                onSearchButtonTapped()
+            }
+        ) {
+            Text(
+                text = "検索"
+            )
+        }
+    }
+}
