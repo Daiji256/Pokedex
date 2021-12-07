@@ -9,15 +9,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.pokedex.model.repository.Pokemon
+import java.util.*
 
 @Composable
 fun PokemonDetailView(pokemon: Pokemon) {
     Column {
         Text(
-            text = pokemon.id.toString()
+            text = "No. " + pokemon.id.toString()
         )
         Text(
-            text = pokemon.name
+            text = pokemon.name.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+            }
         )
         Image(
             painter = rememberImagePainter(pokemon.frontImage.url.value),
