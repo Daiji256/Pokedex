@@ -12,7 +12,7 @@ import com.example.pokedex.viewmodel.MainViewModel
 /**
  * メイン画面
  *
- * ViewModel の状態に応じて，初期表示，読み込み中表示，ユーザ詳細表示，エラー表示を切り替えて表示する
+ * ViewModel の状態に応じて，初期表示，読み込み中表示，詳細表示，エラー表示を切り替えて表示する
  */
 @Composable
 fun MainView(mainViewModel: MainViewModel) {
