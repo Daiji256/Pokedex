@@ -8,6 +8,7 @@ import com.example.pokedex.model.repository.Pokemon
 import com.example.pokedex.model.repository.PokemonRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -66,7 +67,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             uiState.value = UiState.Loading
             runCatching {
-                pokemonRepository.getPokemon(name = searchQuery)
+                pokemonRepository.getPokemon(name = searchQuery.lowercase(Locale.getDefault()))
             }.onSuccess {
                 uiState.value = UiState.Success(pokemon = it)
             }.onFailure {

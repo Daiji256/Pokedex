@@ -8,7 +8,6 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
-import java.util.*
 
 /**
  * 検索キーワードの入力フォームと検索実行ボタンの表示
@@ -25,7 +24,7 @@ fun SearchView(
             },
             value = searchQuery.value,
             onValueChange = { text ->
-                searchQuery.value = text.lowercase(Locale.getDefault())
+                searchQuery.value = text
             },
             modifier = Modifier.weight(1f)
         )
