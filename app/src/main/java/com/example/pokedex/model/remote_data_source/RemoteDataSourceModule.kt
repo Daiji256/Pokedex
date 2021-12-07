@@ -13,7 +13,7 @@ import dagger.hilt.android.components.ViewModelComponent
 class RemoteDataSourceModule {
 
     /**
-     * [RemoteDataSource] の DIに用いられるインスタンスを生成して返す
+     * [RemoteDataSource] の DI に用いられるインスタンスを生成して返す
      */
     @Provides
     fun provideRemoteDataSource(remoteDataSourceImpl: RemoteDataSourceImpl): RemoteDataSource {
