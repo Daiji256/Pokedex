@@ -34,7 +34,7 @@ fun MainView(mainViewModel: MainViewModel) {
                 PokemonDetailView(pokemon = uiState.requirePokemon(), mainViewModel::backHome)
             }
             else -> {
-                ErrorView()
+                ErrorView(mainViewModel::backHome)
             }
         }
     }
