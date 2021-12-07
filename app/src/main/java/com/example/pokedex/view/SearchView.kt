@@ -2,12 +2,15 @@ package com.example.pokedex.view
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 /**
  * 検索キーワードの入力フォームと検索実行ボタンの表示
@@ -26,15 +29,18 @@ fun SearchView(
             onValueChange = { text ->
                 searchQuery.value = text
             },
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f).height(50.dp)
         )
         Button(
             onClick = {
                 onSearchButtonTapped()
-            }
+            },
+            modifier= Modifier.height(50.dp)
         ) {
-            Text(
-                text = "検索"
+            Icon(
+                Icons.Filled.Search,
+                contentDescription = null,
+                modifier = Modifier.size(ButtonDefaults.IconSize)
             )
         }
     }
