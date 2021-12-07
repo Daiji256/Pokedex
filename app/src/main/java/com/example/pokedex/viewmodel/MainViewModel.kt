@@ -2,6 +2,7 @@ package com.example.pokedex.viewmodel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.model.repository.Pokemon
@@ -57,6 +58,22 @@ class MainViewModel @Inject constructor(
     val searchQuery: MutableState<String> = mutableStateOf("")
 
     fun onViewCreated() {
+        viewModelScope.launch {
+            uiState.value = UiState.Loading
+            runCatching {
+                pokemonRepository.getPokedex()
+            }.onSuccess {
+                uiState.value = UiState.SuccessPokedex(pokedex = it)
+            }.onFailure {
+                uiState.value = UiState.Failure
+            }
+        }
+    }
+
+    /**
+     * ホームに戻る
+     */
+    fun backHome() {
         viewModelScope.launch {
             uiState.value = UiState.Loading
             runCatching {

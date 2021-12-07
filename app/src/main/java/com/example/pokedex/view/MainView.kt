@@ -31,7 +31,7 @@ fun MainView(mainViewModel: MainViewModel) {
                 PokedexView(pokedex = uiState.requirePokedex(), mainViewModel::onPokemonTapped)
             }
             is MainViewModel.UiState.SuccessPokemon -> {
-                PokemonDetailView(pokemon = uiState.requirePokemon())
+                PokemonDetailView(pokemon = uiState.requirePokemon(), mainViewModel::backHome)
             }
             else -> {
                 ErrorView()

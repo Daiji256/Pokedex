@@ -1,5 +1,6 @@
 package com.example.pokedex.view
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -12,7 +13,7 @@ import com.example.pokedex.model.repository.Pokemon
 import java.util.*
 
 @Composable
-fun PokemonDetailView(pokemon: Pokemon) {
+fun PokemonDetailView(pokemon: Pokemon, backHome: () -> Unit) {
     Column {
         Text(
             text = "No. " + pokemon.id.toString()
@@ -27,5 +28,8 @@ fun PokemonDetailView(pokemon: Pokemon) {
             contentDescription = null,
             modifier = Modifier.size(128.dp)
         )
+    }
+    BackHandler(enabled = true) {
+        backHome()
     }
 }
