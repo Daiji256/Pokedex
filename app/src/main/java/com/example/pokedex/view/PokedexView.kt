@@ -18,7 +18,7 @@ fun PokedexView(pokedex: Pokedex, onPokemonTapped: (name: String) -> Unit) {
                     text = "No. " + pokemonEntry.entryNumber.toString() +
                             ": " + pokemonEntry.pokemonSpecies.name,
                     modifier = Modifier
-                        .height(20.dp)
+                        .height(30.dp)
                         .clickable { onPokemonTapped(pokemonEntry.entryNumber.toString()) },
                 )
             }
