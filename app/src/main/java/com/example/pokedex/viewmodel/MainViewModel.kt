@@ -57,7 +57,7 @@ class MainViewModel @Inject constructor(
     /**
      * 検索を実行する。
      *
-     * searchQuery から検索フォームに入力された文字列を取得し、
+     * searchQuery から検索フォームに入力された文字列を取得し，
      * Repository を経由してユーザを問い合わせる。
      */
     fun onSearchTapped() {
