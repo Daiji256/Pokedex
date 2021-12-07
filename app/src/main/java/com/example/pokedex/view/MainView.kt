@@ -30,7 +30,7 @@ fun MainView(mainViewModel: MainViewModel) {
                 LoadingView()
             }
             is MainViewModel.UiState.Success -> {
-                PokemonDetailView(pokemon = uiState.requireUser())
+                PokemonDetailView(pokemon = uiState.requirePokemon())
             }
             else -> {
                 ErrorView()
@@ -40,7 +40,7 @@ fun MainView(mainViewModel: MainViewModel) {
 }
 
 // MainViewModel が保持する Pokemon を強制的に取り出す
-private fun MainViewModel.UiState.requireUser(): Pokemon {
+private fun MainViewModel.UiState.requirePokemon(): Pokemon {
     if (this !is MainViewModel.UiState.Success) throw IllegalStateException("user is not loaded")
     return pokemon
 }
