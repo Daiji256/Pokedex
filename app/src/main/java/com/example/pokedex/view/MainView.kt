@@ -41,6 +41,6 @@ fun MainView(mainViewModel: MainViewModel) {
 
 // MainViewModel が保持する Pokemon を強制的に取り出す
 private fun MainViewModel.UiState.requirePokemon(): Pokemon {
-    if (this !is MainViewModel.UiState.Success) throw IllegalStateException("user is not loaded")
+    if (this !is MainViewModel.UiState.Success) throw IllegalStateException("Pokemon is not loaded.")
     return pokemon
 }
