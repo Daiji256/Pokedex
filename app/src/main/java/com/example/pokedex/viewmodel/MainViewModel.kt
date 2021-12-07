@@ -70,18 +70,27 @@ class MainViewModel @Inject constructor(
     }
 
     /**
-     * 検索を実行する。
-     *
-     * searchQuery から検索フォームに入力された文字列を取得し，
-     * Repository を経由してユーザを問い合わせる。
+     * 検索ボタンが押されたとき
      */
     fun onSearchTapped() {
-        val searchQuery: String = searchQuery.value
+        searchPokemon(name = searchQuery.value)
+    }
 
+    /**
+     * ポケモンが押されたとき
+     */
+    fun onPokemonTapped(name: String) {
+        searchPokemon(name = name)
+    }
+
+    /**
+     * ポケモンを検索する
+     */
+    private fun searchPokemon(name: String) {
         viewModelScope.launch {
             uiState.value = UiState.Loading
             runCatching {
-                pokemonRepository.getPokemon(name = searchQuery.lowercase(Locale.getDefault()))
+                pokemonRepository.getPokemon(name = name.lowercase(Locale.getDefault()))
             }.onSuccess {
                 uiState.value = UiState.SuccessPokemon(pokemon = it)
             }.onFailure {
