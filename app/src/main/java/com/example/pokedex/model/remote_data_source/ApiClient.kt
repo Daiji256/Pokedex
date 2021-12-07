@@ -8,6 +8,9 @@ import retrofit2.http.Path
  * Retrofit を用いた PokeAPI のクライアント
  */
 interface ApiClient {
+    @GET("pokedex/national")
+    suspend fun getPokeApiPokedex(): Response<PokeApiPokedex>
+
     @GET("pokemon/{name}")
     suspend fun getPokeApiPokemon(@Path("name") name: String): Response<PokeApiPokemon>
 }

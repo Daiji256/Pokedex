@@ -9,4 +9,9 @@ interface RemoteDataSource {
      * サーバーからのレスポンスを [PokeApiPokemon] として返す
      */
     suspend fun getPokeApiPokemon(name: String): PokeApiPokemon
+
+    /**
+     * サーバーからのレスポンスを [PokeApiPokedex] として返す
+     */
+    suspend fun getPokeApiPokedex(): PokeApiPokedex
 }

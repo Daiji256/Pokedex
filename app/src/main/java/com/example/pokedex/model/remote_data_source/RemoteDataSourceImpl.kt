@@ -15,6 +15,14 @@ class RemoteDataSourceImpl @Inject constructor(
         }
         throw HttpException()
     }
+
+    override suspend fun getPokeApiPokedex(): PokeApiPokedex {
+        val response = apiClient.getPokeApiPokedex()
+        if (response.isSuccessful) {
+            return requireNotNull(response.body())
+        }
+        throw HttpException()
+    }
 }
 
 /**
